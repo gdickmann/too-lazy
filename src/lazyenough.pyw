@@ -16,31 +16,37 @@ EMAIL = ''
 # Your password
 PASSWORD = ''
 
-CHROME_LOCATION = ''
+CHROME_LOCATION = 'C:/chromedriver.exe'
 # ============================================= Changes this files =============================================
 
 # First punch, when I start work.
 FIRST_PUNCH = '07:55'
-
 # Second punch, lunch time.
 SECOND_PUNCH = '11:58'
-
 # Third punch, coming back from lunch.
 THIRD_PUNCH = '12:58'
-
 # Last punch.
 FOURTH_PUNCH = '17:28'
 
+SATURDAY = 5
+SUNDAY = 6
+
 
 def main():
-    while True:
-        check_for_punch(str(current_time()), FIRST_PUNCH)
-        check_for_punch(str(current_time()), SECOND_PUNCH)
-        check_for_punch(str(current_time()), THIRD_PUNCH)
-        check_for_punch(str(current_time()), FOURTH_PUNCH)
+    while True:        
+        if is_weekday(current_date()):
+            print(current_date())
 
-        print(current_time(), "isn't time for punch the clock.")
-        time.sleep(2)
+            check_for_punch(str(current_time()), FIRST_PUNCH)
+            check_for_punch(str(current_time()), SECOND_PUNCH)
+            check_for_punch(str(current_time()), THIRD_PUNCH)
+            check_for_punch(str(current_time()), FOURTH_PUNCH)
+
+            print(current_time(), "isn't time for punch the clock.")
+            time.sleep(2)
+        else:
+            print("Isn't week day!")
+            time.sleep(2)
 
 
 def check_for_punch(current_time, punch_clock_time):
@@ -53,6 +59,10 @@ def check_for_punch(current_time, punch_clock_time):
         # Sleep for 3 minutes, otherwise the check-in will be done each 2 seconds
         # because the current time is still the same.
         time.sleep(180)
+
+
+def is_weekday(day_of_week):
+    return day_of_week != SATURDAY and day_of_week != SUNDAY
 
 
 def do_clock_punch():
@@ -79,7 +89,7 @@ def do_clock_punch():
 
         # 'Register time' button
         browser.switch_to.frame(browser.find_element_by_xpath('//*[@id="custom_iframe"]'))
-        browser.find_element_by_css_selector('#s-button-1').send_keys(Keys.ENTER)
+        # browser.find_element_by_css_selector('#s-button-1').send_keys(Keys.ENTER)
     except:
         print('Error while trying to punch the clock.')
         main()
@@ -99,6 +109,10 @@ def wait_random_time():
 
 def current_time():
     return datetime.datetime.now().strftime("%H:%M")
+
+
+def current_date():
+    return datetime.datetime.today().weekday()
 
 
 if __name__ == "__main__": main()

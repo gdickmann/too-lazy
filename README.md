@@ -1,4 +1,4 @@
-## LazzyEnough
+## LazyEnough
 Eu particularmente detesto entrar no site da Senior 4 vezes por dia para apenas pressionar um botão. Caso você trabalhe na Ambev Tech e queira automatizar ou até
 mesmo burlar o sistema de horários, agora você pode. 
 
