@@ -3,14 +3,18 @@
 import datetime
 import time
 
-from random import randrange
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+import sys
 
 # ============================================= Changes this files =============================================
 # The URL for "Senior Sistemas". It can change for each user.
-WEBSITE_URL = ""
+WEBSITE_LOGIN_URL = ""
+WEBSITE_CLOCK_PUNCH_URL = ""
 # Your login e-mail
 EMAIL = ''
 # Your password
@@ -20,23 +24,20 @@ CHROME_LOCATION = 'C:/chromedriver.exe'
 # ============================================= Changes this files =============================================
 
 # First punch, when I start work.
-FIRST_PUNCH = '07:55'
+FIRST_PUNCH = '8:00'
 # Second punch, lunch time.
-SECOND_PUNCH = '11:58'
+SECOND_PUNCH = '12:00'
 # Third punch, coming back from lunch.
-THIRD_PUNCH = '12:58'
+THIRD_PUNCH = '13:00'
 # Last punch.
-FOURTH_PUNCH = '17:28'
+FOURTH_PUNCH = '17:00'
 
 SATURDAY = 5
 SUNDAY = 6
 
-
 def main():
     while True:        
         if is_weekday(current_date()):
-            print(current_date())
-
             check_for_punch(str(current_time()), FIRST_PUNCH)
             check_for_punch(str(current_time()), SECOND_PUNCH)
             check_for_punch(str(current_time()), THIRD_PUNCH)
@@ -56,7 +57,7 @@ def check_for_punch(current_time, punch_clock_time):
 
         print('Done.')
 
-        # Sleep for 3 minutes, otherwise the check-in will be done each 2 seconds
+        # Sleep for 3 minutes, otherwise the clock punch will be done each 2 seconds
         # because the current time is still the same.
         time.sleep(180)
 
@@ -72,39 +73,29 @@ def do_clock_punch():
 
     try:
         browser = webdriver.Chrome(executable_path=CHROME_LOCATION, chrome_options=options)
-        browser.get(WEBSITE_URL)
-
-        print('Waiting...')
-        
-        # Wait a random time to inaccurate clock punch
-        time.sleep(wait_random_time())
+        browser.get(WEBSITE_LOGIN_URL)
 
         print('Doing the punch...')
         # Login
         browser.find_element_by_css_selector('#username-input-field').send_keys(EMAIL)
         browser.find_element_by_css_selector('#password-input-field').send_keys(PASSWORD)
         browser.find_element_by_css_selector('#loginbtn').send_keys(Keys.ENTER)
+
+        time.sleep(3)
         
-        time.sleep(5)
+        browser.get(WEBSITE_CLOCK_PUNCH_URL)
 
+        time.sleep(15)
+
+        browser.switch_to.frame(browser.find_element_by_css_selector('#custom_iframe'))
         # 'Register time' button
-        browser.switch_to.frame(browser.find_element_by_xpath('//*[@id="custom_iframe"]'))
-        # browser.find_element_by_css_selector('#s-button-1').send_keys(Keys.ENTER)
-    except:
-        print('Error while trying to punch the clock.')
-        main()
+        browser.find_element_by_css_selector('#s-button-1').send_keys(Keys.ENTER)
 
+        time.sleep(3)
 
-def wait_random_time():
-    random_minutes = [
-        60,
-        120,
-        140,
-        150,
-        160,
-        170
-    ]
-    return random_minutes[randrange(len(random_minutes))]
+        browser.close()
+    except Exception as error:
+        print(str(error))
 
 
 def current_time():
