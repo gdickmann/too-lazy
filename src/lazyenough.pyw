@@ -5,16 +5,13 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
-import sys
+import ctypes
 
 # ============================================= Changes this files =============================================
 # The URL for "Senior Sistemas". It can change for each user.
-WEBSITE_LOGIN_URL = ""
-WEBSITE_CLOCK_PUNCH_URL = ""
+WEBSITE_LOGIN_URL = "https://platform.senior.com.br/login/?redirectTo=https%3A%2F%2Fplatform.senior.com.br%2Fsenior-x%2F%23%2F"
+WEBSITE_CLOCK_PUNCH_URL = "https://platform.senior.com.br/senior-x/#/Gest%C3%A3o%20de%20Pessoas/1/res:%2F%2Fsenior.com.br%2Fhcm%2Fpontomobile%2FclockingEvent?category=frame&link=https:%2F%2Fplatform.senior.com.br%2Fhcm-pontomobile%2Fhcm%2Fpontomobile%2F%23%2Fclocking-event&withCredentials=true&r=0"
 # Your login e-mail
 EMAIL = ''
 # Your password
@@ -24,13 +21,13 @@ CHROME_LOCATION = 'C:/chromedriver.exe'
 # ============================================= Changes this files =============================================
 
 # First punch, when I start work.
-FIRST_PUNCH = '8:00'
+FIRST_PUNCH = '08:05'
 # Second punch, lunch time.
-SECOND_PUNCH = '12:00'
+SECOND_PUNCH = '12:05'
 # Third punch, coming back from lunch.
-THIRD_PUNCH = '13:00'
+THIRD_PUNCH = '13:05'
 # Last punch.
-FOURTH_PUNCH = '17:00'
+FOURTH_PUNCH = '17:05'
 
 SATURDAY = 5
 SUNDAY = 6
@@ -95,6 +92,8 @@ def do_clock_punch():
 
         browser.close()
     except Exception as error:
+        ctypes.windll.user32.MessageBoxW(0, "A Senior parece estar fora do ar. Você deveria bater o cartão manualmente neste horário.",
+         "Ocorreu um erro ao bater o cartão", 1)
         print(str(error))
 
 
