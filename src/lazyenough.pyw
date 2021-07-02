@@ -6,6 +6,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+from random import randrange
 import ctypes
 
 # ============================================= Changes this files =============================================
@@ -21,13 +22,13 @@ CHROME_LOCATION = 'C:/chromedriver.exe'
 # ============================================= Changes this files =============================================
 
 # First punch, when I start work.
-FIRST_PUNCH = '08:05'
+FIRST_PUNCH = '07:58'
 # Second punch, lunch time.
-SECOND_PUNCH = '12:05'
+SECOND_PUNCH = '12:00'
 # Third punch, coming back from lunch.
-THIRD_PUNCH = '13:05'
+THIRD_PUNCH = '12:58'
 # Last punch.
-FOURTH_PUNCH = '17:05'
+FOURTH_PUNCH = '17:15'
 
 SATURDAY = 5
 SUNDAY = 6
@@ -68,6 +69,7 @@ def do_clock_punch():
     options = webdriver.ChromeOptions()
     options.add_argument("headless")
 
+    time.sleep(wait_random_time())
     try:
         browser = webdriver.Chrome(executable_path=CHROME_LOCATION, chrome_options=options)
         browser.get(WEBSITE_LOGIN_URL)
@@ -95,6 +97,16 @@ def do_clock_punch():
         ctypes.windll.user32.MessageBoxW(0, "A Senior parece estar fora do ar. Você deveria bater o cartão manualmente neste horário.",
          "Ocorreu um erro ao bater o cartão", 1)
         print(str(error))
+
+
+def wait_random_time():
+    random_minutes = [
+        0,
+        60,
+        120,
+        180,
+    ]
+    return random_minutes[randrange(len(random_minutes))]
 
 
 def current_time():
