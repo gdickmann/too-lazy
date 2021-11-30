@@ -4,29 +4,31 @@ import datetime
 import time
 
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 from selenium.webdriver.common.keys import Keys
 
 from random import randrange
 import ctypes
 
-# ============================================= Changes this files =============================================
-# The URL for "Senior Sistemas". It can change for each user.
-WEBSITE_LOGIN_URL = "https://platform.senior.com.br/login/?redirectTo=https%3A%2F%2Fplatform.senior.com.br%2Fsenior-x%2F%23%2F"
-WEBSITE_CLOCK_PUNCH_URL = "https://platform.senior.com.br/senior-x/#/Gest%C3%A3o%20de%20Pessoas/1/res:%2F%2Fsenior.com.br%2Fhcm%2Fpontomobile%2FclockingEvent?category=frame&link=https:%2F%2Fplatform.senior.com.br%2Fhcm-pontomobile%2Fhcm%2Fpontomobile%2F%23%2Fclocking-event&withCredentials=true&r=0"
-# Your login e-mail
+# ============================================= Changes these lines =============================================
+# The URL for "Senior Sistemas".
+SENIOR_LOGIN_URL = ""
+# URL for clock punch.
+WEBSITE_CLOCK_PUNCH_URL = ""
+# Login e-mail
 EMAIL = ''
-# Your password
+# Password
 PASSWORD = ''
-
-CHROME_LOCATION = 'C:/chromedriver.exe'
-# ============================================= Changes this files =============================================
+# ============================================= Changes these lines =============================================
 
 # First punch, when I start work.
 FIRST_PUNCH = '07:58'
 # Second punch, lunch time.
 SECOND_PUNCH = '12:00'
 # Third punch, coming back from lunch.
-THIRD_PUNCH = '12:58'
+THIRD_PUNCH = '12:53'
 # Last punch.
 FOURTH_PUNCH = '17:15'
 
@@ -71,7 +73,7 @@ def do_clock_punch():
 
     time.sleep(wait_random_time())
     try:
-        browser = webdriver.Chrome(executable_path=CHROME_LOCATION, chrome_options=options)
+        browser = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         browser.get(WEBSITE_LOGIN_URL)
 
         print('Doing the punch...')
@@ -96,7 +98,7 @@ def do_clock_punch():
     except Exception as error:
         ctypes.windll.user32.MessageBoxW(0, "A Senior parece estar fora do ar. Você deveria bater o cartão manualmente neste horário.",
          "Ocorreu um erro ao bater o cartão", 1)
-        print(str(error))
+        print('Error: ' + str(error))
 
 
 def wait_random_time():
