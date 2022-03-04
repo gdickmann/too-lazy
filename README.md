@@ -28,14 +28,14 @@ Agora, o arquivo será executado quando o computador ser reiniciado. O último p
 	Inserindo credenciais  
 	
 
-	# ============================================= Changes these files =============================================
+	# ======================================== Changes these lines ========================================
 	# The URL for "Senior Sistemas". It can change for each user.
 	WEBSITE_URL = "https://platform.senior.com.br/login/..."
 	# Your login e-mail
 	EMAIL = ''
 	# Your password
 	PASSWORD = ''	
-	# ============================================= Changes these files =============================================  
+	# ======================================== Changes these lines ========================================  
 	
 * EMAIL: Seu e-mail (atualmente, @hbsis) de login da SeniorX.
 * PASSWORD = Sua senha de login da SeniorX.
