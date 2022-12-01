@@ -1,7 +1,6 @@
-## AVISO ⚠
-### Esse script foi feito apenas como uma piada. Usá-lo para seu benefício próprio está sob sua responsabilidade.
+Software para automaticamente bater ponto no site da SeniorX.
 
-Programa feito em Python para automaticamente bater ponto no site da SeniorX. O script marcará ponto nos seguintes horários:
+O script marcará ponto nos seguintes horários:		
 
 * 08:00
 * 12:00
@@ -19,7 +18,7 @@ Abra o 'Executar' do Windows (Windows + R) e digite:
 	shell:startup  
 	
 Dentro dessa pasta, todos os arquivos inicializarão automaticamente junto com o Windows. Isso quer dizer que quando você iniciar o sistema operacional, o programa
-irá inicializar junto e rodar em segundo plano.  
+irá inicializar junto e rodar em segundo plano. 
 
 	Selecione o arquivo lazzyenough.pyw que você clonou e cole dentro dessa pasta.  
 
@@ -28,8 +27,7 @@ Agora, o arquivo será executado quando o computador ser reiniciado. O último p
 	Inserindo credenciais  
 	
 
-	# ======================================== Changes these lines ========================================
-	# The URL for "Senior Sistemas". It can change for each user.
+	# ======================================== Changes these lines ========================================	
 	WEBSITE_URL = "https://platform.senior.com.br/login/..."
 	# Your login e-mail
 	EMAIL = ''
@@ -37,5 +35,5 @@ Agora, o arquivo será executado quando o computador ser reiniciado. O último p
 	PASSWORD = ''	
 	# ======================================== Changes these lines ========================================  
 	
-* EMAIL: Seu e-mail (atualmente, @hbsis) de login da SeniorX.
-* PASSWORD = Sua senha de login da SeniorX.
+Caso você queira que o script bata ponto mesmo sem o seu computador estar ligado, utilize o [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview).
+Vale lembrar que, por se tratar de um web scrapping, o programa pode falhar caso o HTML da Senior seja alterado. Sinta-se livre para alterar o código, no entanto.
