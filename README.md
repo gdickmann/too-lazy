@@ -1,4 +1,4 @@
-Software para automaticamente bater ponto no site da SeniorX.
+Software para automaticamente marcar ponto no site da SeniorX.
 
 O script marcará ponto nos seguintes horários:		
 
@@ -10,7 +10,7 @@ O script marcará ponto nos seguintes horários:
 Os horários nunca serão fixos, ou seja, eles terão ~2 minutos de antecedência ou atraso para simular melhor uma marcação de ponto imprecisa.
 
 ### Download
-    git clone https://github.com/Biscoitinhoo/lazzy-enough
+    git clone https://github.com/gdickmann/too-lazy
     pip3 install selenium
 
 Abra o 'Executar' do Windows (Windows + R) e digite:  
